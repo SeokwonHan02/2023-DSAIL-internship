@@ -12,6 +12,7 @@ class MF(nn.Module):
     self.item_embed = nn.Embedding(item_num, dim)
 
   def forward(self, user_id, item_id):
+    # (user, item)_id - 1 since the range of (user, item)_embed is from 0 ~ (user, item)_num
     user_embed = self.user_embed(user_id - 1)
     item_embed = self.item_embed(item_id - 1)
 
@@ -39,6 +40,7 @@ class MF_bias(nn.Module):
     nn.init.zeros_(self.item_bias.weight)
 
   def forward(self, user_ids, item_ids):
+    # (user, item)_id - 1 since the range of (user, item)_embed is from 0 ~ (user, item)_num
     user_embed = self.user_embedding(user_ids - 1)
     item_embed = self.item_embedding(item_ids - 1)
     user_bias = self.user_bias(user_ids - 1).squeeze()
